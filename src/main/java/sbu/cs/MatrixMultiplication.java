@@ -10,6 +10,7 @@ public class MatrixMultiplication {
         List<List<Integer>> tempMatrixProduct;
         public BlockMultiplier() {
             // TODO
+
         }
 
         @Override

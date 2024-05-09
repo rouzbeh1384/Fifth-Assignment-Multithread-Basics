@@ -1,7 +1,6 @@
 package sbu.cs;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class TaskScheduler
 {
@@ -27,12 +26,46 @@ public class TaskScheduler
             TODO
                 Simulate utilizing CPU by sleeping the thread for the specified processingTime
              */
+            try {
+                Thread.sleep(processingTime);
+            }catch (Exception e){
+
+            }
         }
     }
 
-    public static ArrayList<String> doTasks(ArrayList<Task> tasks)
-    {
+    public static ArrayList<String> doTasks(ArrayList<Task> tasks) {
         ArrayList<String> finishedTasks = new ArrayList<>();
+        int i, j;
+        int n = tasks.size();
+        for (i = 0; i < n - 1; i++) {
+
+            for (j = 0; j < n - i - 1; j++) {
+                if (tasks.get(j).processingTime < tasks.get(j + 1).processingTime) {
+                    Task t;
+                    t = tasks.get(j);
+                    tasks.set(j, tasks.get(j + 1));
+                    tasks.set(j + 1, t);
+
+                }
+            }
+        }
+
+
+            for (Task task : tasks) {
+                Thread thread = new Thread(task);
+                thread.start();
+                try {
+                    thread.join();
+                    finishedTasks.add(task.taskName);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+
+
+
 
         /*
         TODO
@@ -42,10 +75,58 @@ public class TaskScheduler
             Don't forget to add each task's name to the finishedTasks after it's completely finished.
          */
 
-        return finishedTasks;
+            return finishedTasks;
+
+    }
+//    public static void main(String[] args) {
+//        // Test your code here
+//    }
+//    public static class SleepThread extends Thread {
+////        public void run() {
+////            try {
+////                Thread.sleep(10000);
+////            } catch (InterruptedException e) {
+////                System.out.println("Thread was interrupted!");
+////            } finally {
+////                System.out.println("Thread will be finished here!!!");
+////            }
+////        }
+////    }
+////
+////    public static void main(String[] args) {
+////        SleepThread thread = new SleepThread();
+////        thread.start();
+////        thread.interrupt();
+////    }
+//public static class DirectRunnable implements Runnable {
+//    public void run() {
+//        System.out.println("Running in: " + Thread.currentThread().getName());
+//    }
+//}
+//
+//
+//        public static void main(String[] args) {
+//            DirectRunnable runnable = new DirectRunnable();
+//            runnable.run();
+//        }
+
+    public static class JoinThread extends Thread {
+        public void run() {
+            System.out.println("Running in: " + Thread.currentThread().getName());
+        }
     }
 
-    public static void main(String[] args) {
-        // Test your code here
-    }
+
+        public static void main(String[] args) {
+            JoinThread thread = new JoinThread();
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Back to: " + Thread.currentThread().getName());
+        }
+
 }
+
