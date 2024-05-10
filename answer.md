@@ -5,6 +5,7 @@
 ### 2:
     Running in: main 
     it mean the main thread is runing
+    return the currnet thread 
 
 
 ### 3:
