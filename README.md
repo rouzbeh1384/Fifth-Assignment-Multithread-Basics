@@ -11,6 +11,12 @@
 - [Submission ⌛](#submission-)
 - [Resources 📚](#resources-)
 
+<div align="center">
+<img src="nice.png" width="50%">
+
+score:100/100
+</div>
+
 ## Introduction 👋
 
 Welcome to your Fifth Advanced Programming (AP) journey, where you'll delve into the fascinating world of multithreading in Java. This project is divided into two main sections:
